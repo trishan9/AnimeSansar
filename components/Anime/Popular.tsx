@@ -45,7 +45,7 @@ const PopularAnime = () => {
         </Link>
       </div>
 
-      <div className="grid items-start justify-center w-full grid-cols-2 gap-10 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+      <div className="grid items-start justify-center w-full grid-cols-2 gap-10 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         {popularLoading && !popularAnime?.media && <Skeleton />}
 
         {popularAnime?.media.slice(0, 12).map((anime: any) => {

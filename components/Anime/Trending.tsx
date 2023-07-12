@@ -42,7 +42,7 @@ const TrendingAnime = () => {
         </Link>
       </div>
 
-      <div className="grid items-start justify-center w-full grid-cols-2 gap-10 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+      <div className="grid items-start justify-center w-full grid-cols-2 gap-10 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         {loading && !trendingAnime?.media && <Skeleton />}
 
         {trendingAnime?.media.slice(0, 12).map((anime: any) => {
@@ -84,7 +84,7 @@ const TrendingAnime = () => {
                   {title.userPreferred}
                 </p>
 
-                <div className="absolute z-20 flex-col hidden w-64 gap-2 p-6 transition-all ease-in-out rounded-md shadow-md -right-[17rem] bg-brand-white lg:group-hover:flex">
+                <div className="absolute z-20 flex-col hidden w-64 gap-2 p-6 transition-all ease-in-out rounded-md shadow-md -right-[17rem] bg-brand-white xl:group-hover:flex">
                   <div className="airing-details">
                     {nextAiringEpisode?.episode ? (
                       <p className="font-medium text-text-primary">

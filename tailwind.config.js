@@ -16,6 +16,9 @@ module.exports = {
         "state-blue": "#3480ea",
         "state-red": "#ec294b",
         "cool": "#BEE3F9"
+      },
+      screens: {
+        'trishan': '1670px'
       }
     },
   },
