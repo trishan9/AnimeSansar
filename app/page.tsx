@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Anime from "@/components/Anime";
-import Skeleton from "@/components/Skeleton";
 
 export const metadata: Metadata = {
   title: "AnimeSansar",

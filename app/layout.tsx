@@ -1,10 +1,10 @@
 "use client";
 
-import { RecoilRoot } from "recoil";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { Overpass } from "next/font/google";
+import { RecoilRoot } from "recoil";
+import "@/styles/globals.css";
 import NavBar from "@/components/NavBar";
-import "./globals.css";
 import Footer from "@/components/Footer";
 
 const overpass = Overpass({

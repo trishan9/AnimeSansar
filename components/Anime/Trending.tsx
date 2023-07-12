@@ -1,14 +1,13 @@
 "use client";
 
+import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_TRENDING_ANIME } from "@/graphql/getTrendingAnime";
 import { useRecoilState } from "recoil";
-import { trendingAnimeState, trendingRawAnimeState } from "@/states/anime";
-import { useEffect } from "react";
 import { Duration } from "luxon";
 import Link from "next/link";
+import { trendingAnimeState, trendingRawAnimeState } from "@/states/anime";
 import Skeleton from "../Skeleton";
-import Image from "next/image";
 
 const TrendingAnime = () => {
   const { error, loading, data } = useQuery(GET_TRENDING_ANIME);
@@ -23,11 +22,6 @@ const TrendingAnime = () => {
     }
   }, [data]);
 
-  loading && console.log("Loading...");
-
-  error && console.log(error);
-
-  trendingAnime && console.log(trendingAnime);
   return (
     <div className="flex flex-col gap-5">
       <div className="flex items-center justify-between w-full">

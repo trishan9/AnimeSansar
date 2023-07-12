@@ -1,12 +1,12 @@
 "use client";
 
+import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_POPULAR_ANIME } from "@/graphql/getPopularAnime";
 import { useRecoilState } from "recoil";
-import { popularAnimeState, popularRawAnimeState } from "@/states/anime";
-import { useEffect } from "react";
 import { Duration } from "luxon";
 import Link from "next/link";
+import { popularAnimeState, popularRawAnimeState } from "@/states/anime";
 import Skeleton from "../Skeleton";
 
 const PopularAnime = () => {
@@ -26,11 +26,6 @@ const PopularAnime = () => {
     }
   }, [popularData]);
 
-  popularLoading && console.log("Loading...");
-
-  popularError && console.log(popularError);
-
-  popularAnime && console.log(popularAnime);
   return (
     <div className="flex flex-col gap-5">
       <div className="flex items-center justify-between w-full">
