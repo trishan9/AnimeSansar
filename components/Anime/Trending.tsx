@@ -84,7 +84,7 @@ const TrendingAnime = () => {
                   {title.userPreferred}
                 </p>
 
-                <div className="absolute z-20 flex-col hidden w-64 gap-2 p-6 transition-all ease-in-out rounded-md shadow-md -right-[17rem] bg-brand-white group-hover:flex">
+                <div className="absolute z-20 flex-col hidden w-64 gap-2 p-6 transition-all ease-in-out rounded-md shadow-md -right-[17rem] bg-brand-white lg:group-hover:flex">
                   <div className="airing-details">
                     {nextAiringEpisode?.episode ? (
                       <p className="font-medium text-text-primary">
