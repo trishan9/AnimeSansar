@@ -8,6 +8,7 @@ import { Duration } from "luxon";
 import Link from "next/link";
 import { trendingAnimeState, trendingRawAnimeState } from "@/states/anime";
 import Skeleton from "../Skeleton";
+import Image from "next/image";
 
 const TrendingAnime = () => {
   const { error, loading, data } = useQuery(GET_TRENDING_ANIME);
@@ -68,8 +69,10 @@ const TrendingAnime = () => {
                 key={id}
                 className="relative flex flex-col items-start gap-2 cursor-pointer group"
               >
-                <img
+                <Image
                   className="object-cover w-56 h-64 transition-all ease-in-out rounded-md group-hover:shadow-lg"
+                  width={224}
+                  height={256}
                   src={coverImage.large}
                   alt={title.userPreferred}
                 />

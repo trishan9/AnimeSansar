@@ -8,6 +8,7 @@ import { Duration } from "luxon";
 import Link from "next/link";
 import { popularAnimeState, popularRawAnimeState } from "@/states/anime";
 import Skeleton from "../Skeleton";
+import Image from "next/image";
 
 const PopularAnime = () => {
   const {
@@ -72,8 +73,10 @@ const PopularAnime = () => {
                 key={id}
                 className="relative flex flex-col items-start gap-2 cursor-pointer group"
               >
-                <img
+                <Image
                   className="object-cover w-56 h-64 transition-all ease-in-out rounded-md group-hover:shadow-lg"
+                  width={224}
+                  height={256}
                   src={coverImage.large}
                   alt={title.userPreferred}
                 />
