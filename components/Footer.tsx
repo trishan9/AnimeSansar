@@ -10,7 +10,16 @@ const Footer = () => {
       <div className="flex items-center justify-center gap-1">
         <p>- Made with</p>
         <HeartIcon className="w-5 text-state-red" />
-        <p>by Trishan Wagle</p>
+        <p>
+          by
+          <a
+            href="https://github.com/trishan9"
+            target="_blank"
+            className="ml-2 underline hover:no-underline"
+          >
+            Trishan Wagle
+          </a>
+        </p>
       </div>
     </footer>
   );

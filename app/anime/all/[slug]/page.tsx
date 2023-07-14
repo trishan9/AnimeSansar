@@ -1,5 +1,11 @@
-const DynamicAllAnime = ({ params }: any) => {
-    return <div>{params.slug}</div>;
+export function generateMetadata({ params }: { params: { slug: string } }) {
+  return {
+    title: params.slug,
   };
-  
-  export default DynamicAllAnime;
+}
+
+const DynamicAllAnime = ({ params }: any) => {
+  return <div>{params.slug}</div>;
+};
+
+export default DynamicAllAnime;
