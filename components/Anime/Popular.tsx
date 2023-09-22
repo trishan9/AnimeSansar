@@ -10,7 +10,7 @@ import { popularAnimeState, popularRawAnimeState } from "@/states/anime";
 import Skeleton from "../Skeleton";
 import Image from "next/image";
 
-const PopularAnime = () => {
+const PopularAnime = (props: any) => {
   const {
     error: popularError,
     loading: popularLoading,
@@ -22,29 +22,42 @@ const PopularAnime = () => {
 
   useEffect(() => {
     if (popularData) {
-      setPopularRawAnime(popularData.Page);
-      setPopularAnime(popularData.Page);
+      if (props.animeCount == "all") {
+        setPopularAnime(popularData.Page.media);
+        setPopularRawAnime(popularData.Page.media);
+      } else {
+        setPopularAnime(popularData.Page.media.slice(0, 12));
+        setPopularRawAnime(popularData.Page.media.slice(0, 12));
+      }
     }
   }, [popularData]);
 
   return (
     <div className="flex flex-col gap-5">
       <div className="flex items-center justify-between w-full">
-        <p className="text-base font-semibold uppercase text-text-primary">
-          All Time Popular
-        </p>
+        {props.animeCount == "limited" ? (
+          <>
+            <p className="text-base font-semibold uppercase text-text-primary">
+              All Time Popular
+            </p>
 
-        <Link href={"anime/all/popular"}>
-          <p className="text-sm transition-all ease-in-out cursor-pointer text-text-primary opacity-80 hover:opacity-100 hover:font-medium">
-            View all
+            <Link href={"/anime/all/popular"}>
+              <p className="text-sm transition-all ease-in-out cursor-pointer text-text-primary opacity-80 hover:opacity-100 hover:font-medium">
+                View all
+              </p>
+            </Link>
+          </>
+        ) : (
+          <p className="text-xl font-semibold uppercase text-text-primary">
+            All Popular Animes
           </p>
-        </Link>
+        )}
       </div>
 
       <div className="grid items-start justify-center w-full grid-cols-2 gap-10 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
-        {popularLoading && !popularAnime?.media && <Skeleton />}
+        {popularLoading && !popularAnime && <Skeleton />}
 
-        {popularAnime?.media.slice(0, 12).map((anime: any) => {
+        {popularAnime?.map((anime: any) => {
           const {
             title,
             id,
@@ -68,7 +81,7 @@ const PopularAnime = () => {
           });
 
           return (
-            <Link href={`anime/${id}`}>
+            <Link href={`/anime/${id}`}>
               <div
                 key={id}
                 className="relative flex flex-col items-start gap-2 cursor-pointer group"
