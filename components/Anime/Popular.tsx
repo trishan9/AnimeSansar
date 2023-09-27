@@ -1,14 +1,15 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_POPULAR_ANIME } from "@/graphql/getPopularAnime";
 import { useRecoilState } from "recoil";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { Duration } from "luxon";
 import Link from "next/link";
+import Image from "next/image";
 import { popularAnimeState, popularRawAnimeState } from "@/states/anime";
 import Skeleton from "../Skeleton";
-import Image from "next/image";
 
 const PopularAnime = (props: any) => {
   const {
@@ -16,9 +17,10 @@ const PopularAnime = (props: any) => {
     loading: popularLoading,
     data: popularData,
   } = useQuery(GET_POPULAR_ANIME);
-  const [, setPopularRawAnime] = useRecoilState(popularRawAnimeState);
-  const [popularAnime, setPopularAnime] =
-    useRecoilState<any>(popularAnimeState);
+
+  const [popularRawAnime, setPopularRawAnime] = useRecoilState<any>(popularRawAnimeState);
+  const [popularAnime, setPopularAnime] = useRecoilState<any>(popularAnimeState);
+  const [searchError, setSearchError] = useState<null | string>(null);
 
   useEffect(() => {
     if (popularData) {
@@ -31,6 +33,19 @@ const PopularAnime = (props: any) => {
       }
     }
   }, [popularData]);
+
+  const handleSearch = (query: string) => {
+    setSearchError(null);
+    const filteredPopularAnimes = popularRawAnime.filter((anime: any) => {
+      const animeName = anime.title.userPreferred.toLowerCase();
+      return animeName.startsWith(query.toLowerCase());
+    });
+    setPopularAnime(filteredPopularAnimes);
+
+    if (filteredPopularAnimes.length == 0) {
+      setSearchError(`Search results not found for: ${query}`);
+    }
+  };
 
   return (
     <div className="flex flex-col gap-5">
@@ -48,11 +63,27 @@ const PopularAnime = (props: any) => {
             </Link>
           </>
         ) : (
-          <p className="text-xl font-semibold uppercase text-text-primary">
-            All Popular Animes
-          </p>
+          <div className="flex flex-col gap-8">
+            <p className="text-xl font-semibold uppercase text-text-primary">
+              All Popular Animes
+            </p>
+
+            <div className="flex flex-col gap-1 mb-8">
+              <p className="text-[15px] text-text-primary">Search</p>
+              <div className="relative flex items-center">
+                <input
+                  className="py-1.5 px-2 rounded-md shadow-lg w-48 pl-8 outline-none"
+                  type="search"
+                  onChange={(e) => handleSearch(e.target.value)}
+                />
+                <MagnifyingGlassIcon className="absolute left-0 w-4 ml-2 opacity-50 text-text-primary" />
+              </div>
+            </div>
+          </div>
         )}
       </div>
+
+      {searchError && <p>{searchError}</p>}
 
       <div className="grid items-start justify-center w-full grid-cols-2 gap-10 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         {popularLoading && !popularAnime && <Skeleton />}
@@ -81,9 +112,8 @@ const PopularAnime = (props: any) => {
           });
 
           return (
-            <Link href={`/anime/${id}`}>
+            <Link href={`/anime/${id}`} key={id}>
               <div
-                key={id}
                 className="relative flex flex-col items-start gap-2 cursor-pointer group"
               >
                 <Image
@@ -116,12 +146,12 @@ const PopularAnime = (props: any) => {
                     <p className="text-sm font-bold text-state-blue">
                       {mainStudio?.map((studio: any, index: number) => {
                         return (
-                          <>
+                          <span key={index}>
                             <span>{studio?.node?.name}</span>
                             <span>
                               {mainStudio.length > 1 && index == 0 && ", "}
                             </span>
-                          </>
+                          </span>
                         );
                       })}
                     </p>
@@ -137,7 +167,7 @@ const PopularAnime = (props: any) => {
 
                   <div className="flex flex-wrap gap-2 text-xs font-medium lowercase genre-badges">
                     {genres.slice(0, 2).map((genre: string) => (
-                      <div className="p-1 px-2 rounded-full text-brand-white bg-state-blue">
+                      <div key={genre} className="p-1 px-2 rounded-full text-brand-white bg-state-blue">
                         <p>{genre}</p>
                       </div>
                     ))}
