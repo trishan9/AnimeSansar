@@ -11,8 +11,8 @@ const heroSectionData = [
   {
     imgUrl: "https://anilist.co/img/landing/apps.svg",
     imgAlt: "Apps",
-    title: "Bring AniList anywhere",
-    desc: "Keep track of your progress on-the-go with one of many AniList apps across iOS, Android, macOS, and Windows.",
+    title: "Bring AnimeSansar anywhere",
+    desc: "Keep track of your progress on-the-go with one of many AnimeSansar apps across iOS, Android, macOS, and Windows.",
   },
 
   {
@@ -41,7 +41,7 @@ const Hero = () => {
 
       <div className="grid w-full grid-cols-1 my-10 md:grid-cols-2 gap-14">
         {heroSectionData.map((data) => (
-          <div className="flex items-center gap-10">
+          <div key={data.title} className="flex items-center gap-10">
             <img className="w-20" src={data.imgUrl} alt={data.imgAlt} />
             <div className="flex flex-col gap-2">
               <p className="text-lg font-semibold">{data.title}</p>

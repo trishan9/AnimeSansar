@@ -26,7 +26,7 @@ const socialMedia = [
 
 const Footer = () => {
   return (
-    <footer className="flex items-start justify-between w-full px-5 py-20 font-medium text-center text-white md:py-10 md:pb-20 lg:px-72 bg-brand-black">
+    <footer className="flex items-start justify-between w-full px-5 py-20 font-medium text-center text-white mt-[30rem] md:py-10 md:pb-20 lg:px-72 bg-brand-black">
       <div className="flex flex-col items-start">
         <p className="text-xl font-semibold">
           Anime<span className="text-state-blue">Sansar&nbsp;</span>
@@ -45,7 +45,7 @@ const Footer = () => {
 
       <div className="flex items-center justify-center gap-4">
         {socialMedia.map((data) => (
-          <a target="_blank" href={data.url}>
+          <a key={data.platform} target="_blank" href={data.url}>
             <img
               width="30"
               height="30"
